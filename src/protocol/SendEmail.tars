@@ -1,0 +1,20 @@
+
+module Base 
+{
+
+enum SendEmailRet
+{
+    SM_SUCC = 0,
+    SM_SYSTEM_ERROR = -1,            //系统繁忙
+};
+
+interface SendEmail 
+{
+    /**
+     * 发送邮件
+     */
+    int sendEmail(vector<string> uids, string subject, string title, string html);
+
+};
+
+}; 
