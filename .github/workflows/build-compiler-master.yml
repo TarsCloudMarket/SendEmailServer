@@ -35,4 +35,4 @@ jobs:
         run: npm install && npm run build
       - name: build docker
         run: |
-          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs build yaml/values.yaml latest true
+          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs . yaml/values.yaml latest true
