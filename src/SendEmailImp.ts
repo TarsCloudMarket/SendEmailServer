@@ -59,6 +59,8 @@ export namespace Base {
 
             this._logger.debug("Message sent: ", info, u);
             this._dayLogger.debug(`sendEmail|${u}|${subject}`);
+
+            current.sendResponse(base.Base.SendEmailRet.SM_SUCC);
         }
 
     }
