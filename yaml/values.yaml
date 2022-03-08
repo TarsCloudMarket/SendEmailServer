@@ -39,7 +39,7 @@ hostPorts: []
 repo:
   id:
   image: ruanshudong/base.sendemailserver
-  secret: tars-image-secret
+  secret: cloud-market-secret
 config:
   - name: config.json
     content: |
