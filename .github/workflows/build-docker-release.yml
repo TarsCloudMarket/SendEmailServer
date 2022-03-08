@@ -31,6 +31,8 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: npm install
         run: npm install && npm run build
+      - name: prepare nodejs package
+        run: cp package.json build/ && cd build && npm install --production && cd ..
       - name: build docker
         run: |
-          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs . yaml/values.yaml ${{ steps.get_version.outputs.VERSION }} true
+          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs build yaml/values.yaml ${{ steps.get_version.outputs.VERSION }} true
