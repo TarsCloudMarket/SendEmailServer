@@ -25,9 +25,8 @@ struct ContentInfo
 
 struct MarkdownInfo
 {
-    1 optional string subject; 
-    2 optional string markdown; 
-    3 optional string css = "github.css"; 
+    1 optional string markdown; 
+    2 optional string css = "github.css"; 
 };
 
 interface SendEmail 

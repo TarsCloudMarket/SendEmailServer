@@ -174,7 +174,6 @@ export namespace Base {
     }
 
     export class MarkdownInfo {
-        subject: string = "";
         markdown: string = "";
         css: string = "github.css";
 
@@ -185,16 +184,14 @@ export namespace Base {
         protected static _read(is: TarsStream.TarsInputStream, tag: number, def?: any) { return is.readStruct(tag, true, def); }
         protected static _readFrom(is: TarsStream.TarsInputStream) {
             const tmp = new MarkdownInfo;
-            tmp.subject = is.readString(1, false, "");
-            tmp.markdown = is.readString(2, false, "");
-            tmp.css = is.readString(3, false, "github.css");
+            tmp.markdown = is.readString(1, false, "");
+            tmp.css = is.readString(2, false, "github.css");
             return tmp;
         }
 
         protected _writeTo(os: TarsStream.TarsOutputStream) {
-            os.writeString(1, this.subject);
-            os.writeString(2, this.markdown);
-            os.writeString(3, this.css);
+            os.writeString(1, this.markdown);
+            os.writeString(2, this.css);
         }
 
         protected _equal() {
@@ -210,14 +207,12 @@ export namespace Base {
 
         toObject(): MarkdownInfo.Object { 
             return {
-                subject: this.subject,
                 markdown: this.markdown,
                 css: this.css
             };
         }
 
         readFromObject(json: MarkdownInfo.Object) { 
-            _hasOwnProperty.call(json, "subject") && (this.subject = json.subject!);
             _hasOwnProperty.call(json, "markdown") && (this.markdown = json.markdown!);
             _hasOwnProperty.call(json, "css") && (this.css = json.css!);
             return this;
@@ -240,7 +235,6 @@ export namespace Base {
 
     export namespace MarkdownInfo {
         export interface Object {
-            subject?: string;
             markdown?: string;
             css?: string;
         }
