@@ -16,8 +16,11 @@
     "@tars/config": "^2.0.5",
     "@tars/logs": "^2.1.1",
     "@tars/rpc": "^2.0.14",
+    "@types/marked": "^4.0.2",
     "date-fns": "^2.25.0",
     "fs-extra": "^9.0.1",
+    "highlight.js": "^11.4.0",
+    "marked": "^4.0.12",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.4",
     "uuid": "^8.3.2"

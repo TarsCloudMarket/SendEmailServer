@@ -12,6 +12,8 @@ import assert = require("assert");
 import * as TarsStream from "@tars/stream";
 import * as TarsRpc from "@tars/rpc";
 
+const _hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export namespace Base {
     export enum SendEmailRet {
         SM_SUCC = 0,
@@ -24,6 +26,225 @@ export namespace Base {
         export function _read(is: TarsStream.TarsInputStream, tag: number, def?: number) { return is.readInt32(tag, true, def); }
     }
 
+
+    export class SendInfo {
+        to: TarsStream.List<string> = new TarsStream.List(TarsStream.String);
+        cc: TarsStream.List<string> = new TarsStream.List(TarsStream.String);
+        bcc: TarsStream.List<string> = new TarsStream.List(TarsStream.String);
+        subject: string = "";
+
+        protected _proto_struct_name_ = "";
+        protected _classname = "Base.SendInfo";
+        protected static _classname = "Base.SendInfo";
+        protected static _write(os: TarsStream.TarsOutputStream, tag: number, val: any) { os.writeStruct(tag, val); }
+        protected static _read(is: TarsStream.TarsInputStream, tag: number, def?: any) { return is.readStruct(tag, true, def); }
+        protected static _readFrom(is: TarsStream.TarsInputStream) {
+            const tmp = new SendInfo;
+            tmp.to = is.readList(1, false, TarsStream.List(TarsStream.String));
+            tmp.cc = is.readList(2, false, TarsStream.List(TarsStream.String));
+            tmp.bcc = is.readList(3, false, TarsStream.List(TarsStream.String));
+            tmp.subject = is.readString(4, false, "");
+            return tmp;
+        }
+
+        protected _writeTo(os: TarsStream.TarsOutputStream) {
+            os.writeList(1, this.to);
+            os.writeList(2, this.cc);
+            os.writeList(3, this.bcc);
+            os.writeString(4, this.subject);
+        }
+
+        protected _equal() {
+            assert.fail("this structure not define key operation");
+        }
+
+        protected _genKey() {
+            if (!this._proto_struct_name_) {
+                this._proto_struct_name_ = "STRUCT" + Math.random();
+            }
+            return this._proto_struct_name_;
+        }
+
+        toObject(): SendInfo.Object { 
+            return {
+                to: this.to.toObject(),
+                cc: this.cc.toObject(),
+                bcc: this.bcc.toObject(),
+                subject: this.subject
+            };
+        }
+
+        readFromObject(json: SendInfo.Object) { 
+            _hasOwnProperty.call(json, "to") && (this.to.readFromObject(json.to!));
+            _hasOwnProperty.call(json, "cc") && (this.cc.readFromObject(json.cc!));
+            _hasOwnProperty.call(json, "bcc") && (this.bcc.readFromObject(json.bcc!));
+            _hasOwnProperty.call(json, "subject") && (this.subject = json.subject!);
+            return this;
+        }
+
+        toBinBuffer() {
+            const os = new TarsStream.TarsOutputStream();
+            this._writeTo(os);
+            return os.getBinBuffer();
+        }
+
+        static new() {
+            return new SendInfo();
+        }
+
+        static create(is: TarsStream.TarsInputStream) {
+            return Base.SendInfo._readFrom(is);
+        }
+    }
+
+    export namespace SendInfo {
+        export interface Object {
+            to?: Array<string>;
+            cc?: Array<string>;
+            bcc?: Array<string>;
+            subject?: string;
+        }
+    }
+
+    export class ContentInfo {
+        text: string = "";
+        html: string = "";
+
+        protected _proto_struct_name_ = "";
+        protected _classname = "Base.ContentInfo";
+        protected static _classname = "Base.ContentInfo";
+        protected static _write(os: TarsStream.TarsOutputStream, tag: number, val: any) { os.writeStruct(tag, val); }
+        protected static _read(is: TarsStream.TarsInputStream, tag: number, def?: any) { return is.readStruct(tag, true, def); }
+        protected static _readFrom(is: TarsStream.TarsInputStream) {
+            const tmp = new ContentInfo;
+            tmp.text = is.readString(1, false, "");
+            tmp.html = is.readString(2, false, "");
+            return tmp;
+        }
+
+        protected _writeTo(os: TarsStream.TarsOutputStream) {
+            os.writeString(1, this.text);
+            os.writeString(2, this.html);
+        }
+
+        protected _equal() {
+            assert.fail("this structure not define key operation");
+        }
+
+        protected _genKey() {
+            if (!this._proto_struct_name_) {
+                this._proto_struct_name_ = "STRUCT" + Math.random();
+            }
+            return this._proto_struct_name_;
+        }
+
+        toObject(): ContentInfo.Object { 
+            return {
+                text: this.text,
+                html: this.html
+            };
+        }
+
+        readFromObject(json: ContentInfo.Object) { 
+            _hasOwnProperty.call(json, "text") && (this.text = json.text!);
+            _hasOwnProperty.call(json, "html") && (this.html = json.html!);
+            return this;
+        }
+
+        toBinBuffer() {
+            const os = new TarsStream.TarsOutputStream();
+            this._writeTo(os);
+            return os.getBinBuffer();
+        }
+
+        static new() {
+            return new ContentInfo();
+        }
+
+        static create(is: TarsStream.TarsInputStream) {
+            return Base.ContentInfo._readFrom(is);
+        }
+    }
+
+    export namespace ContentInfo {
+        export interface Object {
+            text?: string;
+            html?: string;
+        }
+    }
+
+    export class MarkdownInfo {
+        subject: string = "";
+        markdown: string = "";
+        css: string = "github.css";
+
+        protected _proto_struct_name_ = "";
+        protected _classname = "Base.MarkdownInfo";
+        protected static _classname = "Base.MarkdownInfo";
+        protected static _write(os: TarsStream.TarsOutputStream, tag: number, val: any) { os.writeStruct(tag, val); }
+        protected static _read(is: TarsStream.TarsInputStream, tag: number, def?: any) { return is.readStruct(tag, true, def); }
+        protected static _readFrom(is: TarsStream.TarsInputStream) {
+            const tmp = new MarkdownInfo;
+            tmp.subject = is.readString(1, false, "");
+            tmp.markdown = is.readString(2, false, "");
+            tmp.css = is.readString(3, false, "github.css");
+            return tmp;
+        }
+
+        protected _writeTo(os: TarsStream.TarsOutputStream) {
+            os.writeString(1, this.subject);
+            os.writeString(2, this.markdown);
+            os.writeString(3, this.css);
+        }
+
+        protected _equal() {
+            assert.fail("this structure not define key operation");
+        }
+
+        protected _genKey() {
+            if (!this._proto_struct_name_) {
+                this._proto_struct_name_ = "STRUCT" + Math.random();
+            }
+            return this._proto_struct_name_;
+        }
+
+        toObject(): MarkdownInfo.Object { 
+            return {
+                subject: this.subject,
+                markdown: this.markdown,
+                css: this.css
+            };
+        }
+
+        readFromObject(json: MarkdownInfo.Object) { 
+            _hasOwnProperty.call(json, "subject") && (this.subject = json.subject!);
+            _hasOwnProperty.call(json, "markdown") && (this.markdown = json.markdown!);
+            _hasOwnProperty.call(json, "css") && (this.css = json.css!);
+            return this;
+        }
+
+        toBinBuffer() {
+            const os = new TarsStream.TarsOutputStream();
+            this._writeTo(os);
+            return os.getBinBuffer();
+        }
+
+        static new() {
+            return new MarkdownInfo();
+        }
+
+        static create(is: TarsStream.TarsInputStream) {
+            return Base.MarkdownInfo._readFrom(is);
+        }
+    }
+
+    export namespace MarkdownInfo {
+        export interface Object {
+            subject?: string;
+            markdown?: string;
+            css?: string;
+        }
+    }
 
     export abstract class SendEmailImp { 
         _name!: string
@@ -57,7 +278,7 @@ export namespace Base {
             return TarsRpc.error.SUCCESS;
         }
 
-        sendEmail(current: SendEmailImp.sendEmailCurrent, uids: TarsStream.List<string>, subject: string, title: string, html: string): any { 
+        sendEmail(current: SendEmailImp.sendEmailCurrent, send: Base.SendInfo, info: Base.ContentInfo): any { 
             assert.fail("sendEmail function not implemented");
         }
 
@@ -83,36 +304,84 @@ export namespace Base {
         }
 
         protected __sendEmail(current: TarsRpc.TarsCurrent, binBuffer: TarsStream.BinBuffer) {
-            let uids: TarsStream.List<string>;
-            let subject: string;
-            let title: string;
-            let html: string;
+            let send: Base.SendInfo;
+            let info: Base.ContentInfo;
 
             if (current.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || current.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
                 const tup = new TarsStream.UniAttribute();
                 tup.tupVersion = current.getRequestVersion();
                 tup.decode(binBuffer);
-                uids = tup.readList("uids", TarsStream.List(TarsStream.String));
-                subject = tup.readString("subject");
-                title = tup.readString("title");
-                html = tup.readString("html");
+                send = tup.readStruct("send", Base.SendInfo);
+                info = tup.readStruct("info", Base.ContentInfo);
             } else if (current.getRequestVersion() === TarsStream.Tup.JSON_VERSION) {
                 const _data_ = JSON.parse(binBuffer.toNodeBuffer().toString());
-                uids = _data_.uids;
-                subject = _data_.subject;
-                title = _data_.title;
-                html = _data_.html;
+                send = new Base.SendInfo;
+                send.readFromObject(_data_.send);
+                info = new Base.ContentInfo;
+                info.readFromObject(_data_.info);
             } else {
                 const is = new TarsStream.TarsInputStream(binBuffer);
-                uids = is.readList(1, true, TarsStream.List(TarsStream.String));
-                subject = is.readString(2, true, "");
-                title = is.readString(3, true, "");
-                html = is.readString(4, true, "");
+                send = is.readStruct(1, true, Base.SendInfo);
+                info = is.readStruct(2, true, Base.ContentInfo);
             }
 
             current.sendResponse = SendEmailImp.__sendEmail_responser;
 
-            this.sendEmail(current, uids, subject, title, html);
+            this.sendEmail(current, send, info);
+
+            return TarsRpc.error.SUCCESS;
+        }
+
+        sendEmailMarkdown(current: SendEmailImp.sendEmailMarkdownCurrent, send: Base.SendInfo, info: Base.MarkdownInfo): any { 
+            assert.fail("sendEmailMarkdown function not implemented");
+        }
+
+        protected static __sendEmailMarkdown_responser(this: TarsRpc.TarsCurrent, _ret: number) {
+            if (this.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || this.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
+                const tup = new TarsStream.UniAttribute();
+                tup.tupVersion = this.getRequestVersion();
+                tup.writeInt32("", _ret);
+
+                this.doResponse(tup.encode());
+            } else if (this.getRequestVersion() === TarsStream.Tup.JSON_VERSION) {
+                const _data_ = {
+                    "tars_ret": _ret
+                };
+
+                this.doResponse(new TarsStream.BinBuffer(Buffer.from(JSON.stringify(_data_))));
+            } else {
+                const os = new TarsStream.TarsOutputStream();
+                os.writeInt32(0, _ret);
+
+                this.doResponse(os.getBinBuffer());
+            }
+        }
+
+        protected __sendEmailMarkdown(current: TarsRpc.TarsCurrent, binBuffer: TarsStream.BinBuffer) {
+            let send: Base.SendInfo;
+            let info: Base.MarkdownInfo;
+
+            if (current.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || current.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
+                const tup = new TarsStream.UniAttribute();
+                tup.tupVersion = current.getRequestVersion();
+                tup.decode(binBuffer);
+                send = tup.readStruct("send", Base.SendInfo);
+                info = tup.readStruct("info", Base.MarkdownInfo);
+            } else if (current.getRequestVersion() === TarsStream.Tup.JSON_VERSION) {
+                const _data_ = JSON.parse(binBuffer.toNodeBuffer().toString());
+                send = new Base.SendInfo;
+                send.readFromObject(_data_.send);
+                info = new Base.MarkdownInfo;
+                info.readFromObject(_data_.info);
+            } else {
+                const is = new TarsStream.TarsInputStream(binBuffer);
+                send = is.readStruct(1, true, Base.SendInfo);
+                info = is.readStruct(2, true, Base.MarkdownInfo);
+            }
+
+            current.sendResponse = SendEmailImp.__sendEmailMarkdown_responser;
+
+            this.sendEmailMarkdown(current, send, info);
 
             return TarsRpc.error.SUCCESS;
         }
@@ -121,6 +390,9 @@ export namespace Base {
 
     export namespace SendEmailImp {
         export interface sendEmailCurrent extends TarsRpc.TarsCurrent {
+            sendResponse(ret: number): void;
+        }
+        export interface sendEmailMarkdownCurrent extends TarsRpc.TarsCurrent {
             sendResponse(ret: number): void;
         }
     }

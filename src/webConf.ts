@@ -11,8 +11,9 @@ const webConf = {
                     user: "",
                     pass: ""
                 }
-            },
-        },
+            }
+        }
+
     }
 
 };
