@@ -51,51 +51,60 @@ export namespace Base {
         }
 
         public async sendEmail(current: base.Base.SendEmailImp.sendEmailCurrent, send: base.Base.SendInfo, info: base.Base.ContentInfo) {
+            try {
+                await this.checkTransporter();
 
-            await this.checkTransporter();
+                const rst = await this._transporter.sendMail({
+                    from: webConf.config.email.smtp.auth.user,
+                    to: send.to.toObject(),
+                    cc: send.cc.toObject() || [],
+                    bcc: send.bcc.toObject() || [],
+                    subject: send.subject,
+                    text: info.text,
+                    html: info.html,
+                });
 
-            const rst = await this._transporter.sendMail({
-                from: webConf.config.email.smtp.auth.user,
-                to: send.to,
-                cc: send.cc,
-                bcc: send.bcc,
-                subject: send.subject,
-                text: info.text,
-                html: info.html,
-            });
+                this._logger.debug("Message sent: ", send.to.toObject(), send.subject, rst);
+                this._dayLogger.debug(`sendEmail|${send.to.toObject()}|${send.subject}`);
 
-            this._logger.debug("Message sent: ", send.subject, rst);
-            this._dayLogger.debug(`sendEmail|${send.to}|${send.subject}`);
-
-            current.sendResponse(base.Base.SendEmailRet.SM_SUCC);
+                current.sendResponse(base.Base.SendEmailRet.SM_SUCC);
+            } catch (e) {
+                this._logger.error("sendEmail error:", e);
+                current.sendResponse(base.Base.SendEmailRet.SM_SYSTEM_ERROR);
+            }
         }
 
 
         public async sendEmailMarkdown(current: base.Base.SendEmailImp.sendEmailCurrent, send: base.Base.SendInfo, info: base.Base.MarkdownInfo) {
 
-            await this.checkTransporter();
+            try {
+                await this.checkTransporter();
 
-            let css = info.css || 'github.css';
+                let css = info.css || 'github.css';
 
-            await this.checkCSS(css);
+                await this.checkCSS(css);
 
-            let html = `<html><style>${this.getCSS(css)}</style></html>`;
-            html += marked.parse(info.markdown);
+                let html = `<html><style>${this.getCSS(css)}</style></html>`;
+                html += marked.parse(info.markdown);
 
-            const rst = await this._transporter.sendMail({
-                from: webConf.config.email.smtp.auth.user,
-                to: send.to,
-                cc: send.cc,
-                bcc: send.bcc,
-                subject: send.subject,
-                text: info.markdown,
-                html: html,
-            });
+                const rst = await this._transporter.sendMail({
+                    from: webConf.config.email.smtp.auth.user,
+                    to: send.to.toObject(),
+                    cc: send.cc.toObject() || [],
+                    bcc: send.bcc.toObject() || [],
+                    subject: send.subject,
+                    text: info.markdown,
+                    html: html,
+                });
 
-            this._logger.debug("Message sent: ", send.subject, rst);
-            this._dayLogger.debug(`sendEmail|${send.to}|${send.subject}`);
+                this._logger.debug("Message sent: ", send.to.toObject(), send.subject, rst);
+                this._dayLogger.debug(`sendEmail|${send.to.toObject()}|${send.subject}`);
 
-            current.sendResponse(base.Base.SendEmailRet.SM_SUCC);
+                current.sendResponse(base.Base.SendEmailRet.SM_SUCC);
+            } catch (e) {
+                this._logger.error("sendEmailMarkdown error:", e);
+                current.sendResponse(base.Base.SendEmailRet.SM_SYSTEM_ERROR);
+            }
         }
 
         protected async checkTransporter() {
