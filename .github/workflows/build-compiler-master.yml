@@ -37,4 +37,4 @@ jobs:
         run: cp package.json build/ && cd build && npm install --production && cd .. && rm -rf node_modules/
       - name: build docker
         run: |
-          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs build yaml/values.yaml latest true
+          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs . yaml/values.yaml latest true
