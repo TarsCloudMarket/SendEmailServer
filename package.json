@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/ts-node ./src/index.ts --watch ./src -e ts,tsx ",
-    "build": "npm run eslint && tsc && cp -rf src/protocol/*.tars build/protocol/",
+    "build": "npm run eslint && tsc",
     "eslint": "./node_modules/.bin/eslint src --ext .ts",
     "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -36,10 +36,9 @@ jobs:
       - name: prepare tars agent
         run: |
           mkdir /tmp/server
-          mv build /tmp/server
-          mv package.json /tmp/server
-          rm -rf node_modules/ src
-          cp -rf /tmp/server src
+          mv build /tmp/server/
+          rm -rf node_modules/ 
+          cp -rf /tmp/server/build/* src/
           mkdir -p tars_nodejs
           npm install @tars/node-agent -g
           mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
