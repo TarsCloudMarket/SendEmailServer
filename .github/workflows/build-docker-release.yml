@@ -33,6 +33,14 @@ jobs:
         run: npm install && npm run build
       - name: prepare nodejs package
         run: cp package.json build/ && cd build && npm install --production && cd .. && rm -rf node_modules/
+      - name: prepare tars agent
+        run: |
+          mkdir __tmp__
+          mv build __tmp__
+          mv package.json __tmp__
+          mv __tmp__ src
+          mkdir -p tars_nodejs
+          mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
       - name: build docker
         run: |
           exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs . yaml/values.yaml ${{ steps.get_version.outputs.VERSION }} true
