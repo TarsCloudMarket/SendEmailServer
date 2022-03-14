@@ -38,7 +38,7 @@ jobs:
           mkdir /tmp/server
           mv build /tmp/server
           mv package.json /tmp/server
-          rm -rf node_modules/ src/
+          rm -rf node_modules/ src
           cp -rf /tmp/server src
           mkdir -p tars_nodejs
           npm install @tars/node-agent -g
