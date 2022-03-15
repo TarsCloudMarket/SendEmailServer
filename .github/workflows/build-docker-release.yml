@@ -32,10 +32,10 @@ jobs:
       - name: npm install
         run: npm install && npm run build
       - name: prepare nodejs package
-        run: cp package.json build/ && cd build && npm install --production && cd .. 
+        run: cp package.json build/ && cd build && npm install --production && rm -rf package.json && cd ..
       - name: prepare tars agent
         run: |
-          rm -rf package.json src
+          rm -rf src node_modules
           mkdir -p tars_nodejs
           npm install @tars/node-agent -g
           mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
