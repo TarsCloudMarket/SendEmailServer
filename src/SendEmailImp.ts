@@ -26,28 +26,33 @@ export namespace Base {
 
         async initialize() {
 
-            if (process.env.TARS_CONFIG) {
+            try {
+                if (process.env.TARS_CONFIG) {
 
-                const conf = await this._tarsConfig.loadConfig(`config.json`, { format: this._tarsConfig.FORMAT.JSON });
+                    const conf = await this._tarsConfig.loadConfig(`config.json`, { format: this._tarsConfig.FORMAT.JSON });
 
-                webConf.config = conf;
+                    webConf.config = conf;
 
-                this._logger.debug("initialize, in webConfig: ", webConf);
+                    this._logger.debug("initialize, in webConfig: ", webConf);
 
-                await this.checkCSS('github.css');
+                    await this.checkCSS('github.css');
+                }
+
+                marked.setOptions({
+                    renderer: new marked.Renderer(),
+                    // langPrefix: "hljs language-",
+                    pedantic: false,
+                    gfm: true,
+                    breaks: false,
+                    sanitize: false,
+                    smartLists: true,
+                    smartypants: false,
+                    xhtml: false,
+                });
+            } catch (e) {
+                this._logger.error("initialize error: ", e.toString());
+
             }
-
-            marked.setOptions({
-                renderer: new marked.Renderer(),
-                // langPrefix: "hljs language-",
-                pedantic: false,
-                gfm: true,
-                breaks: false,
-                sanitize: false,
-                smartLists: true,
-                smartypants: false,
-                xhtml: false,
-            });
         }
 
         public async sendEmail(current: base.Base.SendEmailImp.sendEmailCurrent, send: base.Base.SendInfo, info: base.Base.ContentInfo) {
