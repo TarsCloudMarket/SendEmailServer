@@ -1,4 +1,3 @@
-
 cloud:
   group: Base
   name: sendemailserver
@@ -16,10 +15,10 @@ cloud:
   readme: README.en.md
   readme_cn: README.md
   protocols:
-    - build/protocol/SendEmail.tars
-  assets: 
+    - src/protocol/SendEmail.tars
+  assets:
     - assets
-app: Base 
+app: Base
 server: SendEmailServer
 template: tars.nodejs
 profile: ""
