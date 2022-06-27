@@ -50,8 +50,8 @@ export namespace Base {
                     xhtml: false,
                 });
             } catch (e) {
-                this._logger.error("initialize error: ", e.toString());
-
+                this._logger.error("initialize error: ", e);
+                process.exit(-1);
             }
         }
 

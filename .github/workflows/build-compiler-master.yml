@@ -3,14 +3,13 @@ name: build-compiler-master
 on:
   push:
     branches:
-      - master 
+      - master
   pull_request:
     branches:
       - master
 
 jobs:
   build:
-    container: tarscloud/base-compiler
     runs-on: ubuntu-20.04
     steps:
       - name: env
@@ -31,16 +30,14 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: npm install
-        run: npm install && npm run build
-      - name: prepare nodejs package
-        run: cp package.json build/ && cd build && npm install --production && rm -rf package.json && cd ..
-      - name: prepare tars agent
+      - name: Create Build
         run: |
-          rm -rf src node_modules
-          mkdir -p tars_nodejs
-          npm install @tars/node-agent -g
-          mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
-      - name: build docker
+          docker run --rm --privileged tonistiigi/binfmt:latest --install all
+          docker buildx create --name k8s-framework-builder --use
+          docker buildx inspect --bootstrap --builder k8s-framework-builder
+      - name: Buildx
         run: |
-          exec-build-cloud.sh tarscloud/tars.nodejsbase nodejs . yaml/values.yaml latest true
+          docker run -v `pwd`:/data --entrypoint "" tarscloud/base-deploy sh -c "cd /data && /usr/bin/create-buildx-dockerfile.sh cpp yaml/values.yaml latest Dockerfile"
+      - name: Create Docker
+        run: |
+          ./docker-buildx-cloud.sh
