@@ -16,7 +16,7 @@ RUN cd /data \
 #     && npm install @tars/node-agent -g \
 #     && mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
 
-# FROM tarscloud/tars.nodejsbase
+FROM tarscloud/tars.nodejsbase
 
 ENV ServerType=nodejs
 
