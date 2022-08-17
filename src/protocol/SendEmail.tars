@@ -1,0 +1,46 @@
+
+module Base 
+{
+
+enum SendEmailRet
+{
+    SM_SUCC = 0,
+    SM_SYSTEM_ERROR = -1,            //系统繁忙
+};
+
+struct SendInfo
+{
+    1 optional vector<string> to; 
+    2 optional vector<string> cc; 
+    3 optional vector<string> bcc; 
+    4 optional string subject; 
+
+};
+
+struct ContentInfo
+{
+    1 optional string text; 
+    2 optional string html; 
+};
+
+struct MarkdownInfo
+{
+    1 optional string markdown; 
+    2 optional string css = "github.css"; 
+};
+
+interface SendEmail 
+{
+    /**
+     * 发送邮件
+     */
+    int sendEmail(SendInfo send, ContentInfo info);
+
+    /**
+     * 发送邮件(内容以markdown形式)
+     */
+    int sendEmailMarkdown(SendInfo send, MarkdownInfo info);
+
+};
+
+}; 

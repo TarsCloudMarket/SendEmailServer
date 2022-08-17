@@ -1,0 +1,45 @@
+{
+  "name": "userserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/nodemon --exec ./node_modules/.bin/ts-node ./src/index.ts --watch ./src -e ts,tsx ",
+    "build": "npm run eslint && tsc && cp -rf src/protocol/*.tars build/protocol/",
+    "eslint": "./node_modules/.bin/eslint src --ext .ts",
+    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tars/config": "^2.0.5",
+    "@tars/logs": "^2.1.1",
+    "@tars/rpc": "^2.0.14",
+    "@types/marked": "^4.0.2",
+    "date-fns": "^2.25.0",
+    "fs-extra": "^9.0.1",
+    "highlight.js": "^11.4.0",
+    "marked": "^4.0.12",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt-nodejs": "^0.0.31",
+    "@types/bluebird": "^3.5.33",
+    "@types/fs-extra": "^9.0.1",
+    "@types/lodash": "^4.14.167",
+    "@types/node": "^13.13.38",
+    "@types/nodemailer": "^6.4.4",
+    "@typescript-eslint/eslint-plugin": "^2.34.0",
+    "@typescript-eslint/parser": "^2.34.0",
+    "eslint": "^6.8.0",
+    "eslint-config-alloy": "^3.10.0",
+    "eslint-plugin-vue": "^8.1.1",
+    "install": "^0.13.0",
+    "ts-node": "^8.10.2",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.9.7"
+  }
+}
