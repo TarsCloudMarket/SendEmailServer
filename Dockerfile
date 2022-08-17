@@ -11,12 +11,12 @@ RUN cd /data \
     && npm install --production \
     && rm -rf package.json \
     && cd .. \
-    && rm -rf src node_modules \
-    && mkdir -p tars_nodejs \
-    && npm install @tars/node-agent -g \
-    && mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
+    && rm -rf src node_modules 
+#     && mkdir -p tars_nodejs \
+#     && npm install @tars/node-agent -g \
+#     && mv /usr/local/lib/node_modules/@tars/node-agent tars_nodejs/
 
-FROM tarscloud/tars.nodejsbase
+# FROM tarscloud/tars.nodejsbase
 
 ENV ServerType=nodejs
 
